@@ -1,3 +1,5 @@
+# TODO:
+# - designer plugin
 Summary:	2D plotting widget extension to the Qt GUI
 Summary(pl):	Rozszerzenie rysunków 2D do Qt
 Name:		qwt
