@@ -1,7 +1,7 @@
 # TODO:
 # - designer plugin
 Summary:	2D plotting widget extension to the Qt GUI
-Summary(pl):	Rozszerzenie rysunków 2D do Qt
+Summary(pl):	Rozszerzenie wykresów 2D dla GUI Qt
 Name:		qwt
 Version:	4.2.0
 Release:	1
@@ -22,7 +22,9 @@ widget, different kinds of sliders, and much more.
 
 %description -l pl
 Qwt jest rozszerzeniem do biblioteki Qt z Troll Tech AS. Biblioteka
-Qwt zawiera komponenty u¿yteczne dla celów technicznych i naukowych.
+Qwt zawiera widgety i komponenty u¿yteczne g³ównie do celów
+technicznych i naukowych. Zawiera widget do rysowania wykresów 2D,
+ró¿ne rodzaje suwaków i wiele wiêcej.
 
 %package devel
 Summary:	Header files for qwt library
@@ -92,7 +94,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc COPYING doc/html/*.css doc/html/*.html doc/html/*.gif doc/html/*.png
+%doc doc/html/*.css doc/html/*.html doc/html/*.gif doc/html/*.png
 %doc examples
 %attr(755,root,root) %{_libdir}/lib*.so
 %{_includedir}/%{name}
