@@ -37,17 +37,17 @@ Header files for qwt library.
 Pliki nag³ówkowe biblioteki qwt.
 
 %package -n qt-plugin-qwt
-Summary:        qwt plugin for Qt designer
-Summary(pl):    Wtyczka qwt dla Qt designer
+Summary:        qwt plugin for Qt Designer
+Summary(pl):    Wtyczka qwt dla Qt Designera
 Group:          Development/Libraries
 Requires:       %{name} = %{version}-%{release}
 Requires:	qt-designer
 
 %description -n qt-plugin-qwt
-qwt plugin for Qt designer.
+qwt plugin for Qt Designer.
 
 %description -n qt-plugin-qwt -l pl
-Wtyczka qwt dla Qt designer.
+Wtyczka qwt dla Qt Designera.
 
 %prep
 %setup -q
@@ -115,4 +115,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %files -n qt-plugin-qwt
-%{_libdir}/qt/plugins-mt/designer/libqwtplugin.so
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/qt/plugins-mt/designer/libqwtplugin.so
