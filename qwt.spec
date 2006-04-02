@@ -1,10 +1,8 @@
-# TODO:
-# - designer plugin
 Summary:	2D plotting widget extension to the Qt GUI
 Summary(pl):	Rozszerzenie wykresów 2D dla GUI Qt
 Name:		qwt
 Version:	4.2.0
-Release:	1
+Release:	2
 License:	LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/qwt/%{name}-%{version}.tar.bz2
@@ -38,6 +36,19 @@ Header files for qwt library.
 %description devel -l pl
 Pliki nag³ówkowe biblioteki qwt.
 
+%package -n qt-plugin-qwt
+Summary:        qwt plugin for Qt designer
+Summary(pl):    Wtyczka qwt dla Qt designer
+Group:          Development/Libraries
+Requires:       %{name} = %{version}-%{release}
+Requires:	qt-designer
+
+%description -n qt-plugin-qwt
+qwt plugin for Qt designer.
+
+%description -n qt-plugin-qwt -l pl
+Wtyczka qwt dla Qt designer.
+
 %prep
 %setup -q
 
@@ -61,7 +72,7 @@ cd ..
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_includedir}/%{name},%{_libdir},%{_mandir}/man3}
+install -d $RPM_BUILD_ROOT{%{_includedir}/%{name},%{_libdir}/qt/plugins-mt/designer,%{_mandir}/man3}
 
 for n in include/*.h ; do
     install -m 644 $n $RPM_BUILD_ROOT%{_includedir}/%{name}
@@ -71,11 +82,14 @@ for n in lib/libqwt.so* ; do
     cp -d $n $RPM_BUILD_ROOT%{_libdir}
 done
 
-# cd designer
-# %{__make} install \
-# 	INSTALL_ROOT=$RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/designe
-# cd ..
-# echo "%{_libdir}/qt/plugins-mt/designer/libqwtplugin.so" > plugin.list
+ cd designer
+ %{__make} install \
+ 	INSTALL_ROOT=$RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/
+# If you find better idea to put this file into proper directory, change this fix
+mv $RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/plugins/designer/libqwtplugin.so \
+	$RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/designer/libqwtplugin.so
+ cd ..
+ echo "%{_libdir}/qt/plugins-mt/designer/libqwtplugin.so" > plugin.list
 
 for n in doc/man/man3/*.3 ; do
     install -m 644 $n $RPM_BUILD_ROOT%{_mandir}/man3
@@ -99,3 +113,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/lib*.so
 %{_includedir}/%{name}
 %{_mandir}/man3/*
+
+%files -n qt-plugin-qwt
+%{_libdir}/qt/plugins-mt/designer/libqwtplugin.so
