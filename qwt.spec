@@ -2,7 +2,7 @@ Summary:	2D plotting widget extension to the Qt GUI
 Summary(pl):	Rozszerzenie wykresów 2D dla GUI Qt
 Name:		qwt
 Version:	4.2.0
-Release:	2
+Release:	3
 License:	LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/qwt/%{name}-%{version}.tar.bz2
@@ -29,6 +29,7 @@ Summary:	Header files for qwt library
 Summary(pl):	Pliki nag³ówkowe biblioteki qwt
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	qt-devel
 
 %description devel
 Header files for qwt library.
