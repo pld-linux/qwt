@@ -38,10 +38,10 @@ Header files for qwt library.
 Pliki nag³ówkowe biblioteki qwt.
 
 %package -n qt-plugin-qwt
-Summary:        qwt plugin for Qt Designer
-Summary(pl):    Wtyczka qwt dla Qt Designera
-Group:          Development/Libraries
-Requires:       %{name} = %{version}-%{release}
+Summary:	qwt plugin for Qt Designer
+Summary(pl):	Wtyczka qwt dla Qt Designera
+Group:		Development/Libraries
+Requires:	%{name} = %{version}-%{release}
 Requires:	qt-designer
 
 %description -n qt-plugin-qwt
