@@ -87,8 +87,9 @@ done
  %{__make} install \
  	INSTALL_ROOT=$RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/
 # If you find better idea to put this file into proper directory, change this fix
-mv $RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/plugins/designer/libqwtplugin.so \
+mv $RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/usr/plugins/designer/libqwtplugin.so \
 	$RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/designer/libqwtplugin.so
+
  cd ..
  echo "%{_libdir}/qt/plugins-mt/designer/libqwtplugin.so" > plugin.list
 
