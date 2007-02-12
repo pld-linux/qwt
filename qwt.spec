@@ -1,5 +1,5 @@
 Summary:	2D plotting widget extension to the Qt GUI
-Summary(pl.UTF-8):   Rozszerzenie wykresów 2D dla GUI Qt
+Summary(pl.UTF-8):	Rozszerzenie wykresów 2D dla GUI Qt
 Name:		qwt
 Version:	4.2.0
 Release:	3
@@ -26,7 +26,7 @@ różne rodzaje suwaków i wiele więcej.
 
 %package devel
 Summary:	Header files for qwt library
-Summary(pl.UTF-8):   Pliki nagłówkowe biblioteki qwt
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki qwt
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	qt-devel
@@ -39,7 +39,7 @@ Pliki nagłówkowe biblioteki qwt.
 
 %package -n qt-plugin-qwt
 Summary:	qwt plugin for Qt Designer
-Summary(pl.UTF-8):   Wtyczka qwt dla Qt Designera
+Summary(pl.UTF-8):	Wtyczka qwt dla Qt Designera
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	qt-designer
