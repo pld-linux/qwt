@@ -1,5 +1,5 @@
 Summary:	2D plotting widget extension to the Qt GUI
-Summary(pl):	Rozszerzenie wykres體 2D dla GUI Qt
+Summary(pl.UTF-8):   Rozszerzenie wykres贸w 2D dla GUI Qt
 Name:		qwt
 Version:	4.2.0
 Release:	3
@@ -18,15 +18,15 @@ library contains widgets and components which are primarily useful for
 technical and scientifical purposes. It includes a 2-D plotting
 widget, different kinds of sliders, and much more.
 
-%description -l pl
+%description -l pl.UTF-8
 Qwt jest rozszerzeniem do biblioteki Qt z Troll Tech AS. Biblioteka
-Qwt zawiera widgety i komponenty u縴teczne g丑wnie do cel體
-technicznych i naukowych. Zawiera widget do rysowania wykres體 2D,
-r罂ne rodzaje suwak體 i wiele wi阠ej.
+Qwt zawiera widgety i komponenty u偶yteczne g艂贸wnie do cel贸w
+technicznych i naukowych. Zawiera widget do rysowania wykres贸w 2D,
+r贸偶ne rodzaje suwak贸w i wiele wi臋cej.
 
 %package devel
 Summary:	Header files for qwt library
-Summary(pl):	Pliki nag丑wkowe biblioteki qwt
+Summary(pl.UTF-8):   Pliki nag艂贸wkowe biblioteki qwt
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	qt-devel
@@ -34,12 +34,12 @@ Requires:	qt-devel
 %description devel
 Header files for qwt library.
 
-%description devel -l pl
-Pliki nag丑wkowe biblioteki qwt.
+%description devel -l pl.UTF-8
+Pliki nag艂贸wkowe biblioteki qwt.
 
 %package -n qt-plugin-qwt
 Summary:	qwt plugin for Qt Designer
-Summary(pl):	Wtyczka qwt dla Qt Designera
+Summary(pl.UTF-8):   Wtyczka qwt dla Qt Designera
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	qt-designer
@@ -47,7 +47,7 @@ Requires:	qt-designer
 %description -n qt-plugin-qwt
 qwt plugin for Qt Designer.
 
-%description -n qt-plugin-qwt -l pl
+%description -n qt-plugin-qwt -l pl.UTF-8
 Wtyczka qwt dla Qt Designera.
 
 %prep
