@@ -76,7 +76,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_includedir}/%{name},%{_libdir}/qt/plugins-mt/designer,%{_mandir}/man3}
 
 for n in include/*.h ; do
-    install -m 644 $n $RPM_BUILD_ROOT%{_includedir}/%{name}
+    install $n $RPM_BUILD_ROOT%{_includedir}/%{name}
 done
 
 for n in lib/libqwt.so* ; do
@@ -87,14 +87,14 @@ done
  %{__make} install \
  	INSTALL_ROOT=$RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/
 # If you find better idea to put this file into proper directory, change this fix
-mv $RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/usr/plugins/designer/libqwtplugin.so \
+mv $RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/plugins/designer/libqwtplugin.so \
 	$RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/designer/libqwtplugin.so
 
  cd ..
  echo "%{_libdir}/qt/plugins-mt/designer/libqwtplugin.so" > plugin.list
 
 for n in doc/man/man3/*.3 ; do
-    install -m 644 $n $RPM_BUILD_ROOT%{_mandir}/man3
+    install $n $RPM_BUILD_ROOT%{_mandir}/man3
 done
 
 %clean
