@@ -1,12 +1,12 @@
 Summary:	2D plotting widget extension to the Qt GUI
 Summary(pl.UTF-8):	Rozszerzenie wykresów 2D dla GUI Qt
 Name:		qwt
-Version:	4.2.0
-Release:	4
-License:	LGPL
+Version:	5.0.2
+Release:	1
+License:	Qwt v1.0
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/qwt/%{name}-%{version}.tar.bz2
-# Source0-md5:	9c828c9a39a83df5d7fa9630ddf812a4
+# Source0-md5:	53adbb313c478dd4aae4f1c864a2037e
 URL:		http://qwt.sourceforge.net/
 BuildRequires:	qmake
 BuildRequires:	qt-devel
@@ -57,7 +57,7 @@ Wtyczka qwt dla Qt Designera.
 export QTDIR=%{_prefix}
 qmake qwt.pro
 
-%{__make}
+%{__make} -j1
 
 cd examples
 	qmake examples.pro
@@ -66,16 +66,11 @@ cd examples
 	rm -fr .*.cache */.*.cache */*/.*.cache Makefile */moc */obj */*/moc */*/obj
 cd ..
 
-cd designer
-	qmake qwtplugin.pro
-	%{__make}
-cd ..
-
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_includedir}/%{name},%{_libdir}/qt/plugins-mt/designer,%{_mandir}/man3}
 
-for n in include/*.h ; do
+for n in src/*.h ; do
     install $n $RPM_BUILD_ROOT%{_includedir}/%{name}
 done
 
@@ -86,8 +81,10 @@ done
  cd designer
  %{__make} install \
  	INSTALL_ROOT=$RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/
+
 # If you find better idea to put this file into proper directory, change this fix
-mv $RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/usr/plugins/designer/libqwtplugin.so \
+#
+mv $RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/plugins/designer/libqwtplugin.so \
 	$RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/designer/libqwtplugin.so
 
  cd ..
