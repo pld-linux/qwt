@@ -2,14 +2,15 @@ Summary:	2D plotting widget extension to the Qt GUI
 Summary(pl.UTF-8):	Rozszerzenie wykresów 2D dla GUI Qt
 Name:		qwt
 Version:	5.0.2
-Release:	1
+Release:	2
 License:	Qwt v1.0
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/qwt/%{name}-%{version}.tar.bz2
 # Source0-md5:	53adbb313c478dd4aae4f1c864a2037e
 URL:		http://qwt.sourceforge.net/
-BuildRequires:	qmake
-BuildRequires:	qt-devel
+BuildRequires:	qt4-qmake
+BuildRequires:	QtCore-devel
+BuildRequires:	QtGui-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -29,7 +30,7 @@ Summary:	Header files for qwt library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki qwt
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	qt-devel
+Requires:	QtGui-devel
 
 %description devel
 Header files for qwt library.
@@ -37,30 +38,29 @@ Header files for qwt library.
 %description devel -l pl.UTF-8
 Pliki nagłówkowe biblioteki qwt.
 
-%package -n qt-plugin-qwt
+%package -n qt4-plugin-qwt
 Summary:	qwt plugin for Qt Designer
 Summary(pl.UTF-8):	Wtyczka qwt dla Qt Designera
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	qt-designer
+Requires:	QtDesigner
 
-%description -n qt-plugin-qwt
+%description -n qt4-plugin-qwt
 qwt plugin for Qt Designer.
 
-%description -n qt-plugin-qwt -l pl.UTF-8
+%description -n qt4-plugin-qwt -l pl.UTF-8
 Wtyczka qwt dla Qt Designera.
 
 %prep
 %setup -q
 
 %build
-export QTDIR=%{_prefix}
-qmake qwt.pro
+qt4-qmake qwt.pro
 
 %{__make} -j1
 
 cd examples
-	qmake examples.pro
+	qt4-qmake examples.pro
 	%{__make}
 	%{__make} distclean
 	rm -fr .*.cache */.*.cache */*/.*.cache Makefile */moc */obj */*/moc */*/obj
@@ -68,7 +68,7 @@ cd ..
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_includedir}/%{name},%{_libdir}/qt/plugins-mt/designer,%{_mandir}/man3}
+install -d $RPM_BUILD_ROOT{%{_includedir}/%{name},%{_libdir}/qt4/plugins-mt/designer,%{_mandir}/man3}
 
 for n in src/*.h ; do
     install $n $RPM_BUILD_ROOT%{_includedir}/%{name}
@@ -78,17 +78,10 @@ for n in lib/libqwt.so* ; do
     cp -d $n $RPM_BUILD_ROOT%{_libdir}
 done
 
- cd designer
- %{__make} install \
- 	INSTALL_ROOT=$RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/
+%{__make} -C designer install \
+	INSTALL_ROOT=$RPM_BUILD_ROOT
 
-# If you find better idea to put this file into proper directory, change this fix
-#
-mv $RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/plugins/designer/libqwtplugin.so \
-	$RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/designer/libqwtplugin.so
-
- cd ..
- echo "%{_libdir}/qt/plugins-mt/designer/libqwtplugin.so" > plugin.list
+echo "%{_libdir}/qt4/plugins/designer/libqwtplugin.so" > plugin.list
 
 for n in doc/man/man3/*.3 ; do
     install $n $RPM_BUILD_ROOT%{_mandir}/man3
@@ -113,6 +106,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/%{name}
 %{_mandir}/man3/*
 
-%files -n qt-plugin-qwt
+%files -n qt4-plugin-qwt
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/qt/plugins-mt/designer/libqwtplugin.so
+%attr(755,root,root) %{_libdir}/qt4/plugins/designer/libqwt_designer_plugin.so
