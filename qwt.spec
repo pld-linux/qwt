@@ -8,12 +8,12 @@ Group:		Libraries
 Source0:	http://dl.sourceforge.net/qwt/%{name}-%{version}.tar.bz2
 # Source0-md5:	53adbb313c478dd4aae4f1c864a2037e
 URL:		http://qwt.sourceforge.net/
-BuildRequires:	qt4-qmake
 BuildRequires:	QtCore-devel
 BuildRequires:	QtDesigner-devel
 BuildRequires:	QtGui-devel
 BuildRequires:	QtScript-devel
 BuildRequires:	QtSvg-devel
+BuildRequires:	qt4-qmake >= 4.3.3-3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -58,15 +58,15 @@ Wtyczka qwt dla Qt Designera.
 %setup -q
 
 %build
-qt4-qmake qwt.pro
+qmake-qt4 qwt.pro
 
 %{__make} -j1
 
 cd examples
-	qt4-qmake examples.pro
-	%{__make}
-	%{__make} distclean
-	rm -fr .*.cache */.*.cache */*/.*.cache Makefile */moc */obj */*/moc */*/obj
+qmake-qt4 examples.pro
+%{__make}
+%{__make} distclean
+rm -fr .*.cache */.*.cache */*/.*.cache Makefile */moc */obj */*/moc */*/obj
 cd ..
 
 %install
