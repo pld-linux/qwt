@@ -10,7 +10,10 @@ Source0:	http://dl.sourceforge.net/qwt/%{name}-%{version}.tar.bz2
 URL:		http://qwt.sourceforge.net/
 BuildRequires:	qt4-qmake
 BuildRequires:	QtCore-devel
+BuildRequires:	QtDesigner-devel
 BuildRequires:	QtGui-devel
+BuildRequires:	QtScript-devel
+BuildRequires:	QtSvg-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
