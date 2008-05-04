@@ -1,12 +1,12 @@
 Summary:	2D plotting widget extension to the Qt GUI
 Summary(pl.UTF-8):	Rozszerzenie wykresów 2D dla GUI Qt
 Name:		qwt
-Version:	5.0.2
-Release:	2
+Version:	5.1.0
+Release:	1
 License:	Qwt v1.0
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/qwt/%{name}-%{version}.tar.bz2
-# Source0-md5:	53adbb313c478dd4aae4f1c864a2037e
+# Source0-md5:	c585dc3b1ea5ad00747721f68687d868
 URL:		http://qwt.sourceforge.net/
 BuildRequires:	QtCore-devel
 BuildRequires:	QtDesigner-devel
@@ -60,14 +60,15 @@ Wtyczka qwt dla Qt Designera.
 %build
 qmake-qt4 qwt.pro
 
-%{__make} -j1
-
-cd examples
-qmake-qt4 examples.pro
 %{__make}
-%{__make} distclean
-rm -fr .*.cache */.*.cache */*/.*.cache Makefile */moc */obj */*/moc */*/obj
-cd ..
+
+### can't build without qwt-devel ver 5.1.0 installed
+#cd examples
+#qmake-qt4 examples.pro
+#%{__make} -j1
+#%{__make} distclean
+#rm -fr .*.cache */.*.cache */*/.*.cache Makefile */moc */obj */*/moc */*/obj
+#cd ..
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -100,6 +101,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc CHANGES COPYING README
 %attr(755,root,root) %{_libdir}/lib*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libqwt.so.*.*
+%attr(755,root,root) %{_libdir}/libqwt.so.?
 
 %files devel
 %defattr(644,root,root,755)
