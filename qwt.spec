@@ -74,21 +74,22 @@ qmake-qt4 qwt.pro
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_includedir}/%{name},%{_libdir}/qt4/plugins-mt/designer,%{_mandir}/man3}
 
-for n in src/*.h ; do
-    install $n $RPM_BUILD_ROOT%{_includedir}/%{name}
+for n in src/*.h; do
+	install $n $RPM_BUILD_ROOT%{_includedir}/%{name}
 done
 
-for n in lib/libqwt.so* ; do
-    cp -d $n $RPM_BUILD_ROOT%{_libdir}
+for n in lib/libqwt.so*; do
+	cp -d $n $RPM_BUILD_ROOT%{_libdir}
 done
 
 %{__make} -C designer install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
 
+# XXX, what for?
 echo "%{_libdir}/qt4/plugins/designer/libqwtplugin.so" > plugin.list
 
-for n in doc/man/man3/*.3 ; do
-    install $n $RPM_BUILD_ROOT%{_mandir}/man3
+for n in doc/man/man3/*.3; do
+	install $n $RPM_BUILD_ROOT%{_mandir}/man3
 done
 
 %clean
