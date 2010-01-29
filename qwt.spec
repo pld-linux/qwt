@@ -1,3 +1,8 @@
+# TODO:
+# - fix build without qwt-devel:
+# x86_64-pld-linux-g++ ... libqwt_designer_plugin.so ... -L../lib 
+#   -lqwt -lQtScript -lQtXml -lQtGui -lQtCore -lQtDesigner -lpthread
+# /usr/bin/ld: cannot find -lqwt
 Summary:	2D plotting widget extension to the Qt GUI
 Summary(pl.UTF-8):	Rozszerzenie wykresów 2D dla GUI Qt
 Name:		qwt
@@ -13,6 +18,7 @@ BuildRequires:	QtDesigner-devel
 BuildRequires:	QtGui-devel
 BuildRequires:	QtScript-devel
 BuildRequires:	QtSvg-devel
+BuildRequires:	qt4-build
 BuildRequires:	qt4-qmake >= 4.3.3-3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
