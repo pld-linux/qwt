@@ -6,12 +6,12 @@
 Summary:	2D plotting widget extension to the Qt GUI
 Summary(pl.UTF-8):	Rozszerzenie wykresów 2D dla GUI Qt
 Name:		qwt
-Version:	5.2.0
+Version:	5.2.1
 Release:	1
 License:	Qwt v1.0
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/qwt/%{name}-%{version}.tar.bz2
-# Source0-md5:	c60b4cfac271a41524402b3ae5197890
+# Source0-md5:	4a595b8db0ec3856b117836c1d60cb27
 URL:		http://qwt.sourceforge.net/
 BuildRequires:	QtCore-devel
 BuildRequires:	QtDesigner-devel
