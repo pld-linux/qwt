@@ -1,6 +1,6 @@
 # TODO:
 # - fix build without qwt-devel:
-# x86_64-pld-linux-g++ ... libqwt_designer_plugin.so ... -L../lib 
+# x86_64-pld-linux-g++ ... libqwt_designer_plugin.so ... -L../lib
 #   -lqwt -lQtScript -lQtXml -lQtGui -lQtCore -lQtDesigner -lpthread
 # /usr/bin/ld: cannot find -lqwt
 Summary:	2D plotting widget extension to the Qt GUI
@@ -10,7 +10,7 @@ Version:	5.2.1
 Release:	2
 License:	Qwt v1.0
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/qwt/%{name}-%{version}.tar.bz2
+Source0:	http://downloads.sourceforge.net/qwt/%{name}-%{version}.tar.bz2
 # Source0-md5:	4a595b8db0ec3856b117836c1d60cb27
 URL:		http://qwt.sourceforge.net/
 BuildRequires:	QtCore-devel
@@ -83,7 +83,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_includedir}/%{name},%{_libdir}/qt4/plugins-mt/designer,%{_mandir}/man3}
 
 for n in src/*.h; do
-	install $n $RPM_BUILD_ROOT%{_includedir}/%{name}
+	cp -p $n $RPM_BUILD_ROOT%{_includedir}/%{name}
 done
 
 for n in lib/libqwt.so*; do
@@ -93,11 +93,14 @@ done
 %{__make} -C designer install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
 
+# pointless link
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libqwt.so.?.?
+
 # XXX, what for?
 echo "%{_libdir}/qt4/plugins/designer/libqwtplugin.so" > plugin.list
 
 for n in doc/man/man3/*.3; do
-	install $n $RPM_BUILD_ROOT%{_mandir}/man3
+	cp -p $n $RPM_BUILD_ROOT%{_mandir}/man3
 done
 
 %clean
@@ -110,15 +113,23 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc CHANGES COPYING README
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libqwt.so.?
+%attr(755,root,root) %ghost %{_libdir}/libqwt.so.5
 
 %files devel
 %defattr(644,root,root,755)
 %doc doc/html/*.css doc/html/*.html doc/html/*.gif doc/html/*.png
 %doc examples
-%attr(755,root,root) %{_libdir}/lib*.so
-%{_includedir}/%{name}
-%{_mandir}/man3/*
+%{_libdir}/libqwt.so
+%{_includedir}/qwt
+%{_mandir}/man3/Qwt*.3*
+%{_mandir}/man3/controlscreenshots.3*
+%{_mandir}/man3/curvescreenshots.3*
+%{_mandir}/man3/deprecated.3*
+%{_mandir}/man3/histogramscreenshots.3
+%{_mandir}/man3/qwtinstall.3*
+%{_mandir}/man3/qwtlicense.3*
+%{_mandir}/man3/scatterscreenshots.3
+%{_mandir}/man3/spectrogramscreenshots.3*
 
 %files -n qt4-plugin-qwt
 %defattr(644,root,root,755)
