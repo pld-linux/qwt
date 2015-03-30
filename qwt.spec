@@ -96,9 +96,6 @@ done
 # pointless link
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libqwt.so.?.?
 
-# XXX, what for?
-echo "%{_libdir}/qt4/plugins/designer/libqwtplugin.so" > plugin.list
-
 for n in doc/man/man3/*.3; do
 	cp -p $n $RPM_BUILD_ROOT%{_mandir}/man3
 done
