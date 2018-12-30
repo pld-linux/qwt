@@ -1,25 +1,22 @@
-# TODO:
-# - fix build without qwt-devel:
-# x86_64-pld-linux-g++ ... libqwt_designer_plugin.so ... -L../lib
-#   -lqwt -lQtScript -lQtXml -lQtGui -lQtCore -lQtDesigner -lpthread
-# /usr/bin/ld: cannot find -lqwt
 Summary:	2D plotting widget extension to the Qt GUI
 Summary(pl.UTF-8):	Rozszerzenie wykresów 2D dla GUI Qt
 Name:		qwt
-Version:	5.2.1
-Release:	3
+Version:	5.2.3
+Release:	1
 License:	Qwt v1.0
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/qwt/%{name}-%{version}.tar.bz2
-# Source0-md5:	4a595b8db0ec3856b117836c1d60cb27
+# Source0-md5:	7d37a11d02bc7d095d0ca6427ec97b8d
+Patch0:		%{name}-install.patch
 URL:		http://qwt.sourceforge.net/
-BuildRequires:	QtCore-devel
-BuildRequires:	QtDesigner-devel
-BuildRequires:	QtGui-devel
-BuildRequires:	QtScript-devel
-BuildRequires:	QtSvg-devel
-BuildRequires:	qt4-build
-BuildRequires:	qt4-qmake >= 4.3.3-3
+BuildRequires:	QtCore-devel >= 4.5
+BuildRequires:	QtDesigner-devel >= 4.5
+BuildRequires:	QtGui-devel >= 4.5
+BuildRequires:	QtScript-devel >= 4.5
+BuildRequires:	QtSvg-devel >= 4.5
+BuildRequires:	QtXml-devel >= 4.5
+BuildRequires:	qt4-build >= 4.5
+BuildRequires:	qt4-qmake >= 4.5
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -35,70 +32,76 @@ technicznych i naukowych. Zawiera widget do rysowania wykresów 2D,
 różne rodzaje suwaków i wiele więcej.
 
 %package devel
-Summary:	Header files for qwt library
-Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki qwt
+Summary:	Header files for Qwt library
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Qwt
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	QtGui-devel
+Requires:	QtCore-devel >= 4.5
+Requires:	QtGui-devel >= 4.5
 
 %description devel
-Header files for qwt library.
+Header files for Qwt library.
 
 %description devel -l pl.UTF-8
-Pliki nagłówkowe biblioteki qwt.
+Pliki nagłówkowe biblioteki Qwt.
 
-%package -n qt4-plugin-qwt
+%package apidocs
+Summary:	API documentation for Qwt library
+Summary(pl.UTF-8):	Dokumentacja API biblioteki Qwt
+Group:		Documentation
+
+%description apidocs
+API documentation for Qwt library.
+
+%description apidocs -l pl.UTF-8
+Dokumentacja API biblioteki Qwt.
+
+%package -n QtDesigner-plugin-qwt
 Summary:	qwt plugin for Qt Designer
 Summary(pl.UTF-8):	Wtyczka qwt dla Qt Designera
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	QtDesigner
+Requires:	QtDesigner >= 4.5
+Obsoletes:	qt4-plugin-qwt
 
-%description -n qt4-plugin-qwt
+%description -n QtDesigner-plugin-qwt
 qwt plugin for Qt Designer.
 
-%description -n qt4-plugin-qwt -l pl.UTF-8
+%description -n QtDesigner-plugin-qwt -l pl.UTF-8
 Wtyczka qwt dla Qt Designera.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
-qmake-qt4 qwt.pro
+qmake-qt4 qwt.pro \
+	INSTALLBASE=%{_prefix} \
+	DOCDIR=%{_docdir} \
+	LIBDIR=%{_libdir} \
+	INCDIR=%{_includedir}/qwt \
+	QMAKE_CXX="%{__cxx}" \
+	QMAKE_CXXFLAGS_RELEASE="%{rpmcxxflags}" \
+	QMAKE_LFLAGS_RELEASE="%{rpmldflags}"
 
-%{__make} -j1 \
-	CC="%{__cc}" \
-	CXX="%{__cxx}"
-
-### can't build without qwt-devel ver 5.1.0 installed
-#cd examples
-#qmake-qt4 examples.pro
-#%{__make} -j1
-#%{__make} distclean
-#rm -fr .*.cache */.*.cache */*/.*.cache Makefile */moc */obj */*/moc */*/obj
-#cd ..
+%{__make} -j1
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_includedir}/%{name},%{_libdir}/qt4/plugins-mt/designer,%{_mandir}/man3}
 
-for n in src/*.h; do
-	cp -p $n $RPM_BUILD_ROOT%{_includedir}/%{name}
-done
-
-for n in lib/libqwt.so*; do
-	cp -d $n $RPM_BUILD_ROOT%{_libdir}
-done
-
-%{__make} -C designer install \
+%{__make} install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
+
+install -d $RPM_BUILD_ROOT%{_mandir}
+%{__mv} $RPM_BUILD_ROOT%{_docdir}/man/man3 $RPM_BUILD_ROOT%{_mandir}
+# packaged as %doc
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/html
 
 # pointless link
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libqwt.so.?.?
 
-for n in doc/man/man3/*.3; do
-	cp -p $n $RPM_BUILD_ROOT%{_mandir}/man3
-done
+install -d $RPM_BUILD_ROOT%{_examplesdir}
+cp -pr examples $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -109,14 +112,12 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CHANGES COPYING README
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
+%attr(755,root,root) %{_libdir}/libqwt.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libqwt.so.5
 
 %files devel
 %defattr(644,root,root,755)
-%doc doc/html/*.css doc/html/*.html doc/html/*.gif doc/html/*.png
-%doc examples
-%{_libdir}/libqwt.so
+%attr(755,root,root) %{_libdir}/libqwt.so
 %{_includedir}/qwt
 %{_mandir}/man3/Qwt*.3*
 %{_mandir}/man3/controlscreenshots.3*
@@ -127,7 +128,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/qwtlicense.3*
 %{_mandir}/man3/scatterscreenshots.3
 %{_mandir}/man3/spectrogramscreenshots.3*
+%{_examplesdir}/%{name}-%{version}
 
-%files -n qt4-plugin-qwt
+%files apidocs
+%defattr(644,root,root,755)
+%doc doc/html/*.css doc/html/*.html doc/html/*.png examples
+
+%files -n QtDesigner-plugin-qwt
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/qt4/plugins/designer/libqwt_designer_plugin.so

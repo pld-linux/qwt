@@ -1,0 +1,29 @@
+--- qwt-5.2.3/qwtconfig.pri.orig	2012-11-20 18:48:07.421235447 +0100
++++ qwt-5.2.3/qwtconfig.pri	2018-12-29 09:04:18.530475791 +0100
+@@ -8,16 +8,22 @@
+ VERSION      = $${VER_MAJ}.$${VER_MIN}.$${VER_PAT}
+ 
+ unix {
+-    INSTALLBASE    = /usr/local/qwt-$$VERSION
++    INSTALLBASE    ?= /usr/local/qwt-$$VERSION
++    LIBDIR         ?= $$INSTALLBASE/lib
++    INCDIR         ?= $$INSTALLBASE/include
++    DOCDIR         ?= $$INSTALLBASE/doc
+ }
+ 
+ win32 {
+     INSTALLBASE    = C:/Qwt-$$VERSION
++    LIBDIR         = $$INSTALLBASE/lib
++    INCDIR         = $$INSTALLBASE/include
++    DOCDIR         = $$INSTALLBASE/doc
+ }
+ 
+-target.path    = $$INSTALLBASE/lib
+-headers.path   = $$INSTALLBASE/include
+-doc.path       = $$INSTALLBASE/doc
++target.path    = $$LIBDIR
++headers.path   = $$INCDIR
++doc.path       = $$DOCDIR
+ 
+ ######################################################################
+ # qmake internal options
