@@ -103,7 +103,7 @@ różne rodzaje suwaków i wiele więcej.
 Summary:	Header files for Qt5 Qwt library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Qwt dla Qt5
 Group:		X11/Development/Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	qwt5 = %{version}-%{release}
 Requires:	Qt5Core-devel >= 5
 Requires:	Qt5Gui-devel >= 5
 Requires:	Qt5OpenGL-devel >= 5
@@ -121,8 +121,8 @@ Pliki nagłówkowe biblioteki Qwt dla Qt5.
 Summary:	qwt plugin for Qt5 Designer
 Summary(pl.UTF-8):	Wtyczka qwt dla Qt5 Designera
 Group:		X11/Libraries
-Requires:	%{name} = %{version}-%{release}
 Requires:	Qt5Designer >= 5
+Requires:	qwt5 = %{version}-%{release}
 
 %description -n Qt5Designer-plugin-qwt
 qwt plugin for Qt5 Designer.
