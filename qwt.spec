@@ -7,7 +7,7 @@ Summary:	2D plotting widget extension to the Qt4 GUI
 Summary(pl.UTF-8):	Rozszerzenie wykresów 2D dla GUI Qt4
 Name:		qwt
 Version:	6.1.3
-Release:	1
+Release:	2
 License:	Qwt v1.0
 Group:		X11/Libraries
 Source0:	http://downloads.sourceforge.net/qwt/%{name}-%{version}.tar.bz2
